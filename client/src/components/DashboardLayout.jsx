@@ -41,6 +41,7 @@ const navigation = [
 function NotificationPanel({ notifications, onRead }) {
   return (
     <div className="fixed left-1/2 top-[76px] z-50 w-[min(360px,calc(100vw-2rem))] -translate-x-1/2 overflow-hidden rounded-2xl border border-ink/[0.08] bg-white shadow-[0_18px_50px_rgba(10,23,55,0.16)]">
+      {/* Notification Header */}
       <div className="flex items-center justify-between border-b border-ink/[0.07] px-4 py-3">
         <div>
           <p className="text-sm font-semibold text-ink">
@@ -60,36 +61,39 @@ function NotificationPanel({ notifications, onRead }) {
         </button>
       </div>
 
+      {/* Notifications List */}
       <div className="max-h-[280px] overflow-auto">
         {notifications.length ? (
-          notifications.slice(0, 5).map((notification) => (
-            <div
-              key={notification.id}
-              className={`border-b border-ink/[0.05] px-4 py-3 ${
-                notification.read
-                  ? "bg-white"
-                  : "bg-coral/[0.035]"
-              }`}
-            >
-              <div className="flex gap-3">
-                <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-mint" />
+          notifications
+            .slice(0, 5)
+            .map((notification) => (
+              <div
+                key={notification.id}
+                className={`border-b border-ink/[0.05] px-4 py-3 ${
+                  notification.read
+                    ? "bg-white"
+                    : "bg-coral/[0.035]"
+                }`}
+              >
+                <div className="flex gap-3">
+                  <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-mint" />
 
-                <div>
-                  <p className="text-xs font-semibold text-ink">
-                    {notification.title}
-                  </p>
+                  <div>
+                    <p className="text-xs font-semibold text-ink">
+                      {notification.title}
+                    </p>
 
-                  <p className="mt-1 text-[11px] leading-4 text-slate-500">
-                    {notification.detail}
-                  </p>
+                    <p className="mt-1 text-[11px] leading-4 text-slate-500">
+                      {notification.detail}
+                    </p>
 
-                  <p className="mt-1 text-[10px] text-slate-400">
-                    {formatDateTime(notification.createdAt)}
-                  </p>
+                    <p className="mt-1 text-[10px] text-slate-400">
+                      {formatDateTime(notification.createdAt)}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))
+            ))
         ) : (
           <div className="px-4 py-8 text-center text-xs text-slate-400">
             No notifications yet.
@@ -111,7 +115,8 @@ export default function DashboardLayout({ children }) {
   const navigate = useNavigate();
 
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [notificationsOpen, setNotificationsOpen] = useState(false);
+  const [notificationsOpen, setNotificationsOpen] =
+    useState(false);
 
   const notifications = getNotifications();
 
@@ -145,7 +150,10 @@ export default function DashboardLayout({ children }) {
               }`
             }
           >
-            <Icon size={17} strokeWidth={1.8} />
+            <Icon
+              size={17}
+              strokeWidth={1.8}
+            />
 
             <span>{label}</span>
 
@@ -176,6 +184,7 @@ export default function DashboardLayout({ children }) {
         </div>
 
         <div className="mt-auto space-y-5">
+          {/* Workspace Plan */}
           <div className="rounded-2xl border border-white/[0.08] bg-white/[0.045] p-4">
             <div className="mb-3 flex items-center justify-between text-[10px] font-semibold uppercase tracking-[0.17em] text-slate-600">
               <span>Workspace plan</span>
@@ -198,6 +207,7 @@ export default function DashboardLayout({ children }) {
             </p>
           </div>
 
+          {/* Logout */}
           <button
             onClick={signOut}
             className="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-sm text-slate-500 transition hover:bg-white/[0.05] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-coral/50"
@@ -254,6 +264,7 @@ export default function DashboardLayout({ children }) {
       <div className="lg:pl-[250px]">
         {/* Header */}
         <header className="dashboard-header sticky top-0 z-20 flex h-[76px] items-center justify-between border-b border-ink/[0.08] bg-[#f5f7fb]/90 px-5 backdrop-blur-xl sm:px-8 lg:px-10">
+          {/* Header Left */}
           <div className="flex items-center gap-3">
             <button
               onClick={() => setMobileOpen(true)}
@@ -278,7 +289,7 @@ export default function DashboardLayout({ children }) {
 
           {/* Header Right */}
           <div className="flex items-center gap-3">
-            {/* Notifications */}
+            {/* Notification Button */}
             <div className="relative">
               <button
                 aria-label="Notifications"
@@ -299,6 +310,7 @@ export default function DashboardLayout({ children }) {
                 )}
               </button>
 
+              {/* Centered Notification Panel */}
               {notificationsOpen && (
                 <NotificationPanel
                   notifications={notifications}
@@ -310,7 +322,7 @@ export default function DashboardLayout({ children }) {
               )}
             </div>
 
-            {/* Profile */}
+            {/* Profile Button */}
             <button
               aria-label="Open profile"
               onClick={() => navigate("/profile")}
