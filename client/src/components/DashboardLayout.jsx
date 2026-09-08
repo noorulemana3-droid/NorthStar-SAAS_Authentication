@@ -40,8 +40,7 @@ const navigation = [
 
 function NotificationPanel({ notifications, onRead }) {
   return (
-    <div className="absolute left-1/2 top-12 z-50 w-[min(320px,calc(100vw-2rem))] -translate-x-1/2 overflow-hidden rounded-2xl border border-ink/[0.08] bg-white shadow-[0_18px_50px_rgba(10,23,55,0.16)]">
-      {/* Notification Header */}
+    <div className="fixed left-1/2 top-[76px] z-50 w-[min(360px,calc(100vw-2rem))] -translate-x-1/2 overflow-hidden rounded-2xl border border-ink/[0.08] bg-white shadow-[0_18px_50px_rgba(10,23,55,0.16)]">
       <div className="flex items-center justify-between border-b border-ink/[0.07] px-4 py-3">
         <div>
           <p className="text-sm font-semibold text-ink">
@@ -61,39 +60,36 @@ function NotificationPanel({ notifications, onRead }) {
         </button>
       </div>
 
-      {/* Notifications List */}
       <div className="max-h-[280px] overflow-auto">
         {notifications.length ? (
-          notifications
-            .slice(0, 5)
-            .map((notification) => (
-              <div
-                key={notification.id}
-                className={`border-b border-ink/[0.05] px-4 py-3 ${
-                  notification.read
-                    ? "bg-white"
-                    : "bg-coral/[0.035]"
-                }`}
-              >
-                <div className="flex gap-3">
-                  <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-mint" />
+          notifications.slice(0, 5).map((notification) => (
+            <div
+              key={notification.id}
+              className={`border-b border-ink/[0.05] px-4 py-3 ${
+                notification.read
+                  ? "bg-white"
+                  : "bg-coral/[0.035]"
+              }`}
+            >
+              <div className="flex gap-3">
+                <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-mint" />
 
-                  <div>
-                    <p className="text-xs font-semibold text-ink">
-                      {notification.title}
-                    </p>
+                <div>
+                  <p className="text-xs font-semibold text-ink">
+                    {notification.title}
+                  </p>
 
-                    <p className="mt-1 text-[11px] leading-4 text-slate-500">
-                      {notification.detail}
-                    </p>
+                  <p className="mt-1 text-[11px] leading-4 text-slate-500">
+                    {notification.detail}
+                  </p>
 
-                    <p className="mt-1 text-[10px] text-slate-400">
-                      {formatDateTime(notification.createdAt)}
-                    </p>
-                  </div>
+                  <p className="mt-1 text-[10px] text-slate-400">
+                    {formatDateTime(notification.createdAt)}
+                  </p>
                 </div>
               </div>
-            ))
+            </div>
+          ))
         ) : (
           <div className="px-4 py-8 text-center text-xs text-slate-400">
             No notifications yet.
