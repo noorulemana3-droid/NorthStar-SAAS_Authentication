@@ -1,0 +1,20 @@
+NORTHSTAR — Vercel Deployment Notes
+
+1. Push this folder to a GitHub repository named:
+   InternGrow_Northstar
+
+2. On Vercel:
+   - Import the GitHub repository
+   - Framework: Vite (auto-detected)
+   - Build Command: npm run build
+   - Output Directory: dist/public
+   - Root Directory: leave as project root
+
+3. vercel.json is already included for React Router SPA fallback.
+
+4. Demo login:
+   Email: demo@example.com
+   Password: Demo@123
+   OTP: generated dynamically and shown in the demo UI
+
+Note: Authentication is intentionally simulated with localStorage/sessionStorage for the internship demo; there is no real email service or backend authentication.
